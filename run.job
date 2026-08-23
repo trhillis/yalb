@@ -1,16 +1,21 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
 #SBATCH --time=00:40:00
 #SBATCH -J lbm_gpu
-#SBATCH --mem=6gb
+#SBATCH --mem=24gb
 #SBATCH --partition=gpu_a100_il
-#SBATCH --gres=gpu:1
 
 module purge
 module load toolkit/nvidia-hpc-sdk/25.1
 module load mpi/openmpi/5.0-nvidia-25.1-nompi
 
+echo "Job ID:       $SLURM_JOB_ID"
+echo "MPI ranks:    $SLURM_NTASKS"
+echo "Grid:         ${GRID} x ${GRID}"
+echo "Steps:        ${STEPS}"
+echo "GPUs:         $SLURM_GPUS"
+
 nvidia-smi
 
-time ./build-gpu/executables/main 300 300
+time mpirun -np "$SLURM_NTASKS" \
+    ./build-gpu/executables/main "$GRID" "$GRID" "$STEPS"
