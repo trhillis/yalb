@@ -52,10 +52,6 @@ int main(int argc, char *argv[]) {
 
         create_walls(lbm_grid, local_start, global_rows);
 
-        // initialize_density_bump(lbm_grid);
-        // initialize_velocity_bump(lbm_grid);
-        //initialize_fixed_point(lbm_grid);
-        //initialize_shear_wave(lbm_grid);
         initialize_eq_conditions(lbm_grid);
 
         compute_density(lbm_grid);
@@ -123,7 +119,7 @@ int main(int argc, char *argv[]) {
 
         int completed_steps = 0;
 
-        constexpr bool diagnostics = false;
+        constexpr bool diagnostics = true;
 
         for (int step = 0; step < num_steps; ++step) {
             
@@ -139,15 +135,6 @@ int main(int argc, char *argv[]) {
                 rank,
                 size
             );
-
-            /*
-            stream_lbm_pull(
-                lbm_grid,
-                0.1,
-                local_start,
-                global_rows
-            );
-            */
 
             collision_and_stream(
                 lbm_grid,
@@ -348,11 +335,6 @@ int main(int argc, char *argv[]) {
 
         
     }
-
-    auto input_path = "./simulation_test_input.txt";
-
-    if (not std::filesystem::exists(input_path))
-      std::cerr << "warning: could not find input file " << input_path << "\n";
 
     Kokkos::finalize();
     MPI_Finalize();
