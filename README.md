@@ -7,7 +7,7 @@ git clone https://github.com/trhillis/yalb.git
 cd yalb
 ```
 
-## Build on CPU
+## Build on CPU (currently not working due to CUDA code)
 
 ```bash
 cmake -S . -B build
