@@ -2,9 +2,9 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
-rows = 129
-cols = 129
-step = 92000
+rows = 100
+cols = 100
+step = 10000
 
 files = sorted(
     glob.glob(f"data/v/output_velocity_rank*_step{step}.txt")
@@ -36,7 +36,7 @@ v = np.zeros((rows, cols))
 for k in range(len(data)):
     row = global_row[k]
     column = col[k]
-
+    print(k)
     u[row, column] = horizontal_velocity[k]
     v[row, column] = vertical_velocity[k]
 

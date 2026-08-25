@@ -981,7 +981,7 @@ void collision_and_stream(
     int global_rows)
 {
     // BGK relaxation time.
-    constexpr double tau = 0.596;
+    constexpr double tau = 0.5384;
 
     // Relaxation frequency, equal to the inverse of tau.
     constexpr double omega = 1.0 / tau;
